@@ -1,0 +1,26 @@
+{
+  "name": "realworld-express-prisma-backend",
+  "version": "0.0.1",
+  "description": "A RealWorld Backend API made with express + prisma",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeuRonao/realworld-express-prisma-backend.git"
+  },
+  "keywords": [
+    "express",
+    "prisma",
+    "RealWorld",
+    "API",
+    "Backend"
+  ],
+  "author": "Ronan Pardo Soares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SeuRonao/realworld-express-prisma-backend/issues"
+  },
+  "homepage": "https://github.com/SeuRonao/realworld-express-prisma-backend#readme"
+}
