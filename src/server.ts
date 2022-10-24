@@ -1,7 +1,7 @@
 import app from "./app";
 
 const hostname = process.env.HOSTNAME || "localhost";
-const port = process.env.PORT ? parseInt(process.env.PORT) : 4000;
+const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 app.listen(port, hostname, function () {
   console.log(`Express Server initiated on http://${hostname}:${port}`);
