@@ -36,7 +36,7 @@ export default async function usersRegister(
     logger.debug(`Creating token for user ${user.username}`);
     const token = createToken(JSON.stringify({ user }));
     const responseBody = { user: { ...user, token } };
-    return res.json(responseBody);
+    return res.status(201).json(responseBody);
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
       logger.debug(
