@@ -21,9 +21,9 @@ export default async function userGet(
       return res.sendStatus(404);
     }
     delete user.password;
-    const token = createToken(JSON.stringify(user));
+    const token = createToken(JSON.stringify({ user }));
     const responseBody = { user: { ...user, token } };
-    logger.debug(`Found user with ${user.username}`);
+    logger.debug(`Found user with ${user.email}`);
     return res.json(responseBody);
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
