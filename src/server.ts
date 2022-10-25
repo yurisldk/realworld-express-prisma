@@ -9,8 +9,10 @@ app.listen(port, hostname, function () {
 
 process.on("SIGTERM", function () {
   console.log(`SIGTERM signal received: closing HTTP server.`);
+  process.exit();
 });
 
 process.on("SIGINT", function () {
   console.log(`SIGINT signal received: closing HTTP server.`);
+  process.exit();
 });
