@@ -32,3 +32,9 @@ yarn-error.log*
 
 #Environment files
 .env
+
+#Logs
+logs/
+
+#Database
+prisma/dev.db
