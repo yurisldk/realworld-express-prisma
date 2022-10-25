@@ -28,6 +28,7 @@ export default async function usersRegister(
     return next(new Error("user username not defined"));
   }
   try {
+    // TODO store hashed password.
     const user = await prisma.user.create({
       data: { email, password, username },
       select: { email: true, username: true, bio: true, image: true },

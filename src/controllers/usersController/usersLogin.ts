@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { createToken } from "../../utils/auth";
 import prisma from "../../utils/db/prisma";
@@ -27,15 +28,20 @@ export default async function userLogin(
     logger.debug("userLogin received request with password undefined.");
     return next(new Error("user password not defined."));
   }
-  const user = await prisma.user.findUnique({
+  const user: Partial<User> | null = await prisma.user.findUnique({
     where: { email },
-    select: { email: true, username: true, bio: true, image: true },
   });
   if (!user) {
     logger.debug(`userLogin did not find user ${email}.`);
     return res.sendStatus(404);
   }
   logger.debug(`userLogin found user with ${user.email}.`);
+  if (user.password != password) {
+    // TODO compare with hashed password.
+    logger.debug(`invalid password for user ${email}`);
+    return res.sendStatus(403);
+  }
+  delete user.password;
   const token = createToken(JSON.stringify({ user }));
   const responseBody = { user: { ...user, token } };
   return res.json(responseBody);
