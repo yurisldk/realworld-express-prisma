@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import logger from "../utils/logger";
+import logger from "../../utils/logger";
 
 interface ValidationError {
   body?: Array<string>;
 }
 
-export async function userLoginValidator(
+export default async function userLoginValidator(
   req: Request,
   res: Response,
   next: NextFunction
@@ -35,7 +35,7 @@ export async function userLoginValidator(
   }
   if (errors.body.length) return res.status(422).json({ errors });
   else {
-    logger.debug("user validated correctly.");
+    logger.debug("user validated correctly");
     next();
   }
 }
