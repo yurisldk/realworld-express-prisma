@@ -13,6 +13,7 @@ datasource db {
 model User {
   email    String  @unique
   username String  @unique
+  password String
   bio      String?
   image    String?
 }
