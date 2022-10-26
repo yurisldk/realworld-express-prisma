@@ -9,11 +9,13 @@ export default async function getProfile(
   res: Response,
   next: NextFunction
 ) {
-  logger.debug("Starting - getProfile");
   const { username } = req.params;
-  if (!username)
-    return res.status(422).json({ errors: { parameters: ["can't be empty"] } });
-  const reqUsername = req.auth?.user.username;
+  if (!username) {
+    res.status(422).json({ errors: { parameters: ["can't be empty"] } });
+    return;
+  }
+  const reqUsername = req.auth?.user.username; // The current user's username
+
   try {
     const profile = await prisma.user.findUnique({
       where: { username },
@@ -23,16 +25,25 @@ export default async function getProfile(
         bio: true,
         image: true,
         followedBy: {
-          where: { username: reqUsername },
+          where: { username: reqUsername }, // Only selects this user in the followedBy array.
           select: { username: true },
         },
       },
     });
-    const responseBody = { ...profile, following: false };
-    if (responseBody.followedBy?.length) {
+    if (!profile) {
+      return res.sendStatus(404);
+    }
+
+    const responseBody = {
+      ...profile,
+      following: false, // assume that following is false unless the next check is true.
+      followedBy: undefined, // In order to delete latter and avoid polluting everything with typescript types.
+    };
+    delete responseBody.followedBy;
+
+    if (profile.followedBy.length) {
       responseBody.following = true;
     }
-    delete responseBody.followedBy;
     return res.json(responseBody);
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
@@ -44,5 +55,7 @@ export default async function getProfile(
           return next(error);
       }
     }
+    logger.error(`Unhandled other type of error in getProfile`);
+    next(error);
   }
 }
