@@ -18,11 +18,9 @@ export default function generalErrorHandler(
         return res.sendStatus(401);
       case "credentials_bad_scheme":
         logger.debug("Authorization with bad scheme.");
-        return res
-          .status(400)
-          .json({
-            errors: { header: ["authorization token with bad scheme"] },
-          });
+        return res.status(400).json({
+          errors: { header: ["authorization token with bad scheme"] },
+        });
       case "invalid_token":
         logger.debug("Authorization token invalid.");
         return res
