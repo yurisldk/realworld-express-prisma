@@ -11,9 +11,11 @@ datasource db {
 }
 
 model User {
-  email    String  @unique
-  username String  @unique
-  password String
-  bio      String?
-  image    String?
+  email      String  @unique
+  username   String  @id
+  password   String
+  bio        String?
+  image      String?
+  follows    User[]  @relation("UserFollows")
+  followedBy User[]  @relation("UserFollows")
 }
