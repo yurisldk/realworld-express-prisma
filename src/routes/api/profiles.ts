@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { followProfile, getProfile } from "../../controllers/profileController";
+import {
+  followProfile,
+  getProfile,
+  unFollowProfile,
+} from "../../controllers/profileController";
 import {
   authenticate,
   optionalAuthenticate,
@@ -11,8 +15,6 @@ router.get("/:username", optionalAuthenticate, getProfile);
 
 router.post("/:username/follow", authenticate, followProfile);
 
-router.delete("/:username/follow", function (_req, res) {
-  return res.sendStatus(501);
-});
+router.delete("/:username/follow", authenticate, unFollowProfile);
 
 export default router;
