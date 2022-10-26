@@ -41,7 +41,7 @@ export default async function getProfile(
           logger.error(
             `Unhandled PrismaClientKnownRequestError with code ${error.code} in getProfile`
           );
-          next(error);
+          return next(error);
       }
     }
   }
