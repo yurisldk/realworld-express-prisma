@@ -1,4 +1,4 @@
-import createToken from "../../../utils/auth/createToken";
+import createToken from "./createToken";
 import jwt from "jsonwebtoken";
 
 describe("Testing token creation", () => {
