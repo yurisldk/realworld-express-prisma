@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
-import prisma from "../../utils/db/prisma";
+import prisma from "../../utils/test/prismaMock";
 import getProfile from "./getProfile";
 
 describe("Testing getProfile controller", function () {
@@ -10,9 +10,6 @@ describe("Testing getProfile controller", function () {
     sendStatus: jest.fn().mockReturnThis(),
     json: jest.fn().mockReturnThis(),
   } as unknown as Response;
-  const findUnique = jest
-    .spyOn(prisma.user, "findUnique")
-    .mockResolvedValue(null);
 
   beforeEach(function () {
     jest.clearAllMocks();
@@ -40,9 +37,9 @@ describe("Testing getProfile controller", function () {
       username: "default",
       followedBy: [],
     };
-    findUnique.mockResolvedValue(foundProfile as unknown as User);
+    prisma.user.findUnique.mockResolvedValue(foundProfile as unknown as User);
     await getProfile(req, res, next);
-    expect(findUnique).toBeCalled();
+    expect(prisma.user.findUnique).toBeCalled();
 
     const responseBody = {
       ...foundProfile,
@@ -57,9 +54,9 @@ describe("Testing getProfile controller", function () {
     const req = {
       params: { username: "username_to_retrieve" },
     } as unknown as Request;
-    findUnique.mockResolvedValue(null);
+    prisma.user.findUnique.mockResolvedValue(null);
     await getProfile(req, res, next);
-    expect(findUnique).toBeCalled();
+    expect(prisma.user.findUnique).toBeCalled();
     expect(res.sendStatus).toHaveBeenCalledWith(404);
   });
   test("Retrieves the profile with following if conditions met.", async function () {
@@ -74,7 +71,7 @@ describe("Testing getProfile controller", function () {
       username: "default",
       followedBy: ["testing_auth_username"],
     };
-    findUnique.mockResolvedValue(foundProfile as unknown as User);
+    prisma.user.findUnique.mockResolvedValue(foundProfile as unknown as User);
     await getProfile(req, res, next);
 
     const responseBody = {
