@@ -1,17 +1,20 @@
 import { Router } from "express";
+import {
+  followProfile,
+  getProfile,
+  unFollowProfile,
+} from "../../controllers/profileController";
+import {
+  authenticate,
+  optionalAuthenticate,
+} from "../../middleware/auth/authenticator";
 
 const router = Router();
 
-router.get("/:username", function (_req, res) {
-  return res.sendStatus(501);
-});
+router.get("/:username", optionalAuthenticate, getProfile);
 
-router.post("/:username/follow", function (_req, res) {
-  return res.sendStatus(501);
-});
+router.post("/:username/follow", authenticate, followProfile);
 
-router.delete("/:username/follow", function (_req, res) {
-  return res.sendStatus(501);
-});
+router.delete("/:username/follow", authenticate, unFollowProfile);
 
 export default router;

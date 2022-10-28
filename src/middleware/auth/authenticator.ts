@@ -19,3 +19,17 @@ export const authenticate = jwt({
     }
   },
 });
+
+export const optionalAuthenticate = jwt({
+  algorithms: ["HS256"],
+  secret: process.env.JWT_SECRET,
+  credentialsRequired: false,
+  getToken: function getTokenInHeader(req) {
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.split(" ")[0] === "Token"
+    ) {
+      return req.headers.authorization.split(" ")[1];
+    }
+  },
+});
