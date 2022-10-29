@@ -6,6 +6,13 @@ import { createToken } from "../../utils/auth";
 import prisma from "../../utils/db/prisma";
 import logger from "../../utils/logger";
 
+/**
+ * Middleware that gets the current user based on the JWT given.
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
+ * @returns
+ */
 export default async function userGet(
   req: JWTRequest,
   res: Response,

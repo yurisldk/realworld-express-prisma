@@ -4,6 +4,13 @@ import { createToken } from "../../utils/auth";
 import prisma from "../../utils/db/prisma";
 import logger from "../../utils/logger";
 
+/**
+ * Middleware that registers the user with information given in the body of the request.
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
+ * @returns
+ */
 export default async function usersRegister(
   req: Request,
   res: Response,
