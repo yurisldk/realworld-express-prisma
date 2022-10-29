@@ -2,9 +2,9 @@
 
 > ### Typescript + Express + Prisma codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
 
-### [Demo](https://demo.realworld.io/)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+### [Demo](https://TODO)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://TODO)
 
-This codebase was created to demonstrate a fully fledged fullstack application built with **Typescript + Express + Prisma** including CRUD operations, authentication, routing, pagination, and more.
+This codebase was created to demonstrate a backend built with **Typescript + Express + Prisma** including CRUD operations, authentication, routing, pagination, and more.
 
 We've gone to great lengths to adhere to the **Typescript** community styleguides & best practices.
 
@@ -12,8 +12,19 @@ For more information on how to this works with other frontends/backends, head ov
 
 # How it works
 
-> Describe the general architecture of your app here
+The project is build using [TypeScript](https://www.typescriptlang.org/) for language, [Express](https://expressjs.com/) for routing and server framework and [Prisma](https://www.prisma.io/) as an _ORM_.
+
+For the moment the project uses [SQLite](https://www.sqlite.org/index.html) as database with plans to move to [PostgreSQL](https://www.postgresql.org/) when the api is ready.
+
+For unit testing we use the [Jest](https://jestjs.io/) framework since it is what is promoted by prisma team to mock testing function that change the database.
 
 # Getting started
 
-> npm install, npm start, etc.
+To run this project you should have _node/npm_ installed.
+
+Run `npm install` to install the dependencies.
+
+- To run the development version `npm run develop`.
+- To test the application `npm test`.
+- To build a production version `npm run build`.
+- To run the production build `npm run start`.
