@@ -4,6 +4,13 @@ import { Request as JWTRequest } from "express-jwt";
 import prisma from "../../utils/db/prisma";
 import logger from "../../utils/logger";
 
+/**
+ * Middleware that removes the username in the parameters to the current user followers list.
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
+ * @returns
+ */
 export default async function unFollowProfile(
   req: JWTRequest,
   res: Response,

@@ -2,6 +2,15 @@ import { NextFunction, Response } from "express";
 import { Request as JWTRequest } from "express-jwt";
 import logger from "../../utils/logger";
 
+/**
+ * This function is a middleware that validates the user information in the request in order to log the user.
+ * If the request is malformed it responds accordingly and returns, stopping the flow of the express.
+ * If the request is well formed, it passes control to the next handler.
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
+ * @returns
+ */
 export default async function userUpdateValidator(
   req: JWTRequest,
   res: Response,
