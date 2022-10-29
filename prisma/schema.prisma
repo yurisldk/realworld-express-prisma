@@ -11,11 +11,11 @@ datasource db {
 }
 
 model User {
-  email      String  @unique
-  username   String  @id
-  password   String
-  bio        String?
-  image      String?
-  follows    User[]  @relation("UserFollows")
-  followedBy User[]  @relation("UserFollows")
+  email      String  @unique ///User email for registering and login use.
+  username   String  @id ///User internal id.
+  password   String ///User password stored in the database.
+  bio        String? ///User biographical information.
+  image      String? ///Link to the user avatar.
+  follows    User[]  @relation("UserFollows") ///List of other users that this one follows.
+  followedBy User[]  @relation("UserFollows") ///List of other users that follows this one.
 }

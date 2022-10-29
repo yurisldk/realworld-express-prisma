@@ -4,6 +4,13 @@ import { Request as JWTRequest } from "express-jwt";
 import prisma from "../../utils/db/prisma";
 import logger from "../../utils/logger";
 
+/**
+ * Middleware that takes the username in the parameters and returns its profile.
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
+ * @returns
+ */
 export default async function getProfile(
   req: JWTRequest,
   res: Response,
