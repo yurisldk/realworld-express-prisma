@@ -1,15 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedError } from "express-jwt";
-import logger from "./logger";
+import logger from "../../utils/logger";
 
-export default function generalErrorHandler(
+export default async function authErrorHandler(
   err: Error,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ) {
-  logger.debug("Starting - generalErrorHandler");
-  logger.debug(`Handling error ${err.name}`);
   // Se if authorization failed
   if (err instanceof UnauthorizedError) {
     switch (err.code) {
@@ -28,16 +26,8 @@ export default function generalErrorHandler(
           .json({ errors: { header: ["authorization token is invalid"] } });
       default:
         logger.error(`Unhandled UnauthorizedError with code ${err.code}`);
-        return next(err);
+        return res.sendStatus(500);
     }
   }
-  // Se if body is not a valid JSON parse.
-  try {
-    JSON.parse(req.body);
-  } catch (error) {
-    logger.debug("Body is not a valid JSON.");
-    return res.status(422).json({ errors: { body: ["not a valid json"] } });
-  }
-  logger.error(`Unhandled error ${err.name}`);
-  return next(err);
+  next(err);
 }
