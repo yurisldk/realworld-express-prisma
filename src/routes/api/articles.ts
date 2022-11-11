@@ -12,9 +12,12 @@ router.get(
   articles.articlesList
 );
 
-router.get("/feed", function (_req, res) {
-  res.sendStatus(501);
-});
+router.get(
+  "/feed",
+  auth.authenticate,
+  validator.articlesFeedValidator,
+  articles.articlesFeed
+);
 
 router.get("/:slug", auth.optionalAuthenticate, articles.articlesGet);
 

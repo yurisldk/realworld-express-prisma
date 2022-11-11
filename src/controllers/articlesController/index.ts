@@ -3,3 +3,4 @@ export { default as articlesGet } from "./articlesGet";
 export { default as articlesList } from "./articlesList";
 export { default as articlesUpdate } from "./articlesUpdate";
 export { default as articlesDelete } from "./articlesDelete";
+export { default as articlesFeed } from "./articlesFeed";
