@@ -49,12 +49,12 @@ router.delete("/:slug/comments/:id", function (_req, res) {
   res.sendStatus(501);
 });
 
-router.post("/:slug/favorite", function (_req, res) {
-  res.sendStatus(501);
-});
+router.post("/:slug/favorite", auth.authenticate, articles.articlesFavorite);
 
-router.delete("/:slug/favorite", function (_req, res) {
-  res.sendStatus(501);
-});
+router.delete(
+  "/:slug/favorite",
+  auth.authenticate,
+  articles.articlesUnFavorite
+);
 
 export default router;
