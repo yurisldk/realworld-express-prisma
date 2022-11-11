@@ -5,9 +5,12 @@ import * as auth from "../../middleware/auth/authenticator";
 
 const router = Router();
 
-router.get("/", function (_req, res) {
-  res.sendStatus(501);
-});
+router.get(
+  "/",
+  auth.optionalAuthenticate,
+  validator.articlesListValidator,
+  articles.articlesList
+);
 
 router.get("/feed", function (_req, res) {
   res.sendStatus(501);
