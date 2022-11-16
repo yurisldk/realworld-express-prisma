@@ -1,4 +1,4 @@
-import prisma from "./prisma";
+import prisma from "../prisma";
 
 export default async function articlesListPrisma(
   tag?: string,
@@ -7,7 +7,6 @@ export default async function articlesListPrisma(
   limit = 20,
   offset = 0
 ) {
-  console.log(authorUsername);
   const articles = await prisma.article.findMany({
     where: {
       authorUsername,

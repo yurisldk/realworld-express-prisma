@@ -1,7 +1,7 @@
 import { NextFunction, Response } from "express";
 import { Request } from "express-jwt";
-import commentCreatePrisma from "../../utils/db/commentCreatePrisma";
-import userGetPrisma from "../../utils/db/userGetPrisma";
+import commentCreatePrisma from "../../utils/db/comment/commentCreatePrisma";
+import userGetPrisma from "../../utils/db/user/userGetPrisma";
 import commentViewer from "../../view/commentViewer";
 
 export default async function createComment(
@@ -27,7 +27,7 @@ export default async function createComment(
 
     // Create comment view
     const commentView = commentViewer(comment, currentUser);
-    return res.json(commentView);
+    return res.status(201).json(commentView);
   } catch (error) {
     return next(error);
   }
