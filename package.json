@@ -1,6 +1,6 @@
 {
   "name": "realworld-express-prisma-backend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A RealWorld Backend API made with express + prisma",
   "main": "dist/server.js",
   "scripts": {
