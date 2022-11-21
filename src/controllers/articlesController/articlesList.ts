@@ -1,4 +1,3 @@
-import { Article, Tag, User } from "@prisma/client";
 import { NextFunction, Response } from "express";
 import { Request } from "express-jwt";
 import { ParsedQs } from "qs";
@@ -17,6 +16,13 @@ function parseArticleListQuery(query: ParsedQs) {
   return { tag, author, favorited, limit: limitNumber, offset: offsetNumber };
 }
 
+/**
+ * Article controller that must receive a request.
+ * @param req Request with an optional jwt token verified
+ * @param res Response
+ * @param next NextFunction
+ * @returns void
+ */
 export default async function articlesList(
   req: Request,
   res: Response,
@@ -25,35 +31,31 @@ export default async function articlesList(
   const { tag, author, favorited, limit, offset } = parseArticleListQuery(
     req.query
   );
-  const username = req.auth?.user.username;
+  const username = req.auth?.user?.username;
 
-  // Get current user
-  let currentUser: (User & { favorites: Article[] }) | null;
   try {
-    currentUser = await userGetPrisma(username);
+    // Get current user
+    const currentUser = await userGetPrisma(username);
+
+    // Get the articles
+    const articles = await articlesListPrisma(
+      tag,
+      author,
+      favorited,
+      limit,
+      offset
+    );
+
+    // Create articles view
+    const articlesListView = articles.map((article) =>
+      currentUser ? articleViewer(article, currentUser) : articleViewer(article)
+    );
+
+    return res.json({
+      articles: articlesListView,
+      articlesCount: articlesListView.length,
+    });
   } catch (error) {
     return next(error);
   }
-
-  // Get the articles
-  let articles;
-  try {
-    articles = await articlesListPrisma(tag, author, favorited, limit, offset);
-  } catch (error) {
-    return next(error);
-  }
-  // Create articles view
-  const articlesListView = articles.map(
-    (
-      value: Article & {
-        tagList: Tag[];
-        author: User & { followedBy: User[] };
-        _count: { favoritedBy: number };
-      }
-    ) => articleViewer(value, currentUser || undefined)
-  );
-  return res.json({
-    articles: articlesListView,
-    articlesCount: articlesListView.length,
-  });
 }
