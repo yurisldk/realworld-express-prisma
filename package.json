@@ -1,12 +1,12 @@
 {
   "name": "realworld-express-prisma-backend",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A RealWorld Backend API made with express + prisma",
-  "main": "dist/src/server.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "npx tsc",
     "develop": "DEBUG=express:* npx ts-node-dev --rs --clear --exit-child src/server.ts",
-    "start": "node dist/src/server.js",
+    "start": "node dist/server.js",
     "lint": "npx eslint .",
     "style": "npx prettier --check .",
     "test": "jest -i",
