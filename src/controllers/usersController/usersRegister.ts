@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import createUserToken from "../../utils/auth/createUserToken";
 import userCreatePrisma from "../../utils/db/user/userCreatePrisma";
+import { hashPassword } from "../../utils/hashPasswords";
 import userViewer from "../../view/userViewer";
 
 /**
@@ -17,8 +18,11 @@ export default async function usersRegister(
 ) {
   const { email, password, username } = req.body.user;
   try {
+    // Hash password
+    const hashed = hashPassword(password);
+
     // Create the new user on the database
-    const user = await userCreatePrisma(username, email, password);
+    const user = await userCreatePrisma(username, email, hashed);
 
     // Create the authentication token for future use
     const token = createUserToken(user);
