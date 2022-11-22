@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import createUserToken from "../../utils/auth/createUserToken";
 import userGetEmailPrisma from "../../utils/db/user/userGetEmailPrisma";
+import { compareWithHash } from "../../utils/hashPasswords";
 import userViewer from "../../view/userViewer";
 
 /**
@@ -20,7 +21,8 @@ export default async function userLogin(
     if (!user) return res.sendStatus(404);
 
     // Compare the user password given with the one stored
-    if (user.password != password) return res.sendStatus(403);
+    console.log(password, user.password);
+    if (!compareWithHash(password, user.password)) return res.sendStatus(403);
 
     // Create the user token for future authentication
     const token = createUserToken(user);
