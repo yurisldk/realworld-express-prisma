@@ -1,12 +1,14 @@
 {
   "name": "realworld-express-prisma-backend",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A RealWorld Backend API made with express + prisma",
   "main": "dist/server.js",
   "scripts": {
     "build": "dotenv -e .env -- npx tsc",
-    "migrate:develop": "dotenv -e .env.development -- npx prisma db push",
+    "studio": "dotenv -e .env -- npx prisma studio",
     "develop": "DEBUG=express:* dotenv -e .env.development -- npx ts-node-dev --rs --clear --exit-child src/server.ts",
+    "studio:develop": "dotenv -e .env.development -- npx prisma studio",
+    "migrate:develop": "dotenv -e .env.development -- npx prisma db push",
     "start": "dotenv -e .env -- node dist/server.js",
     "lint": "npx eslint .",
     "style": "npx prettier --check .",
