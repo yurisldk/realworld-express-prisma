@@ -25,6 +25,10 @@ app.use("/api/articles", articlesRouter);
 
 app.use("/api/tags", tagsRouter);
 
+app.get("/", function (_req, res) {
+  return res.send("This is just the backend for RealWorld");
+});
+
 app.use(authErrorHandler, prismaErrorHandler, generalErrorHandler);
 
 export default app;
