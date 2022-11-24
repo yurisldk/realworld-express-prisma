@@ -1,10 +1,9 @@
 import app from "./app";
 
-const hostname = process.env.HOSTNAME || "localhost";
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
-app.listen(port, hostname, function () {
-  console.log(`Express Server initiated on http://${hostname}:${port}`);
+app.listen(port, function () {
+  console.log(`Express Server initiated listening on port ${port}`);
 });
 
 process.on("SIGTERM", function () {
