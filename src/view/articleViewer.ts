@@ -15,7 +15,7 @@ export default function articleViewer(
     ? currentUser.favorites.some((value) => value.slug === article.slug)
     : false;
 
-  const tagListView = article.tagList.map((tag) => tag.tagName);
+  const tagListView = article.tagList.map((tag) => tag.tagName).sort();
 
   const authorView = profileViewer(article.author, currentUser);
 
